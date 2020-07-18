@@ -1,0 +1,15 @@
+.navbar.navbar-dark.navbar-expand-md.fixed-top.bg-dark {
+  background-color: #000000 !important;
+  opacity: 0.8;
+}
+
+.navbar-dark .navbar-nav .nav-link .apple-logo {
+  font-size: 21px;
+  line-height: 0;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #fff;
+  font-size: 13px;
+}
+

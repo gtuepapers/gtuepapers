@@ -35,7 +35,6 @@ function pdfsToZIP(pdfs, paths) {
     for(let i = 0; i < pdfs.length; i ++) {
         zip.addFile(paths[i], pdfs[i])
     }
-    
     return zip;
 } 
 
