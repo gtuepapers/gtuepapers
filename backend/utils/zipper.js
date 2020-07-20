@@ -4,7 +4,9 @@ const admzip = require("adm-zip")
  * @param {Buffer} zipBuffer
  */
 function zipToPDF(zipBuffer) {
+    console.log(zipBuffer)
     let zip = new admzip(zipBuffer)
+    console.log(zip.getEntries())
     return zip.getEntries()[0].getData()
 }
 

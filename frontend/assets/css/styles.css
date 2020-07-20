@@ -1,0 +1,27 @@
+.hover_pointer:hover {
+    cursor: pointer;
+    border: 3px solid rgb(15, 194, 253);
+    border-radius: 30px;
+    margin: -5px;
+}
+.search_item {
+    border: 3px solid grey;
+    border-radius: 30px;
+    transition: all linear 0.3s;
+}
+.icon_cus {
+    transition: all linear 0.25s;
+    font-size: xx-large;
+}
+.icon_cus:hover {
+    transform: scale(2);
+    margin: 10px;
+}
+.icon_back {
+    transition: all linear 0.25s;
+    font-size: large;
+}
+.icon_back:hover {
+    transform: scale(2);
+
+}

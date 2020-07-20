@@ -3,7 +3,6 @@ const paperRequest = require('./utils/paperRequest')
 const searcher = require("./utils/searcher")
 
 function requestHandler(app) {
-    console.log("here")
 
     // Search 
     app.get("/search/:code", (req, res) => {
@@ -20,8 +19,10 @@ function requestHandler(app) {
             res.end();
         }
         data = await paperRequest(req.query.url);
-        err = data[0]
-        body = data[1]
+        err = data.err
+        body = data.data
+        console.log(err)
+        console.log(body)
         if (err) {
             console.log("can't download paper")
             res.status(403).json(err)
@@ -37,8 +38,8 @@ function requestHandler(app) {
             'Content-Disposition': `attachment; filename=${req.params.code}.pdf`,
             'Content-Length': pdf.length
         });
-        console.log("here12")
         res.write(pdf)
+        res.end()
     })
 
 
@@ -59,10 +60,8 @@ function requestHandler(app) {
             papers = searcher(code)
             for(let j = 0; j < papers.length; j ++) {
                 let paper = papers[j] 
-                let paperSplit = paper.split("/")
-                let path = code + "/" + paperSplit[paperSplit.length - 2] + ".pdf"
+                let path = code + "/" + getNameFromUrl(paper) + ".pdf"
                 data = await paperRequest(paper)
-                // console.log(data)
                 err = data.err
                 body = data.data
                 if (err) {
@@ -93,4 +92,18 @@ function requestHandler(app) {
         res.end()
     })
 }
+
+function getNameFromUrl(url) {
+    let urlSplit = url.split("/")
+    let month = urlSplit[urlSplit.length - 2]
+    let name = ""
+    if (month[0] == "W") {
+        name = "Winter "
+    } else {
+        name = "Summer "
+    }
+    name += month.substring(month.length - 4)
+    return name
+}
+
 module.exports = requestHandler

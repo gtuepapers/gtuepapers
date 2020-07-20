@@ -181,7 +181,7 @@ if __name__ == "__main__":
                 deptSem.append(sem) # SEM 1 
                 semPaper = [] # PAPER 1
                 for papers in departments[dept][branch][sem]: # PAPER1
-                    semPaper.append([papers, departments[dept][branch][sem][papers]]) # PAPER 1
+                    semPaper.append(papers) # PAPER 1
                 f = open("./json/"+dept+"-"+branch+"-"+sem+".json", "w+")# BE-1.json
                 f.write(json.dumps(semPaper))
                 f.close()
