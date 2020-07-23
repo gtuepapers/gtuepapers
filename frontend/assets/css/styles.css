@@ -4,24 +4,26 @@
     border-radius: 30px;
     margin: -5px;
 }
+
 .search_item {
     border: 3px solid grey;
     border-radius: 30px;
     transition: all linear 0.3s;
 }
+
 .icon_cus {
+    text-decoration: none;
+    color: white;
     transition: all linear 0.25s;
-    font-size: xx-large;
+    font-size: medium;
+    padding-right: 15px;
 }
+
 .icon_cus:hover {
     transform: scale(2);
     margin: 10px;
 }
-.icon_back {
-    transition: all linear 0.25s;
-    font-size: large;
-}
-.icon_back:hover {
-    transform: scale(2);
 
+.icon:hover  {
+    transform: scale(2);
 }

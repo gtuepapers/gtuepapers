@@ -69,8 +69,8 @@
             </div>
             <!-- End: Intro -->
             <form id="search_frm" class="form-inline">
-                <div class="form-group"><input id="search_inp" class="form-control form-control-lg" type="text"
-                        data-aos="fade-up" data-aos-duration="1250" name="code" placeholder="Subject Code"></div>
+                <div class="form-group"><input id="search_inp" class="form-control form-control-lg " type="text"
+                    name="code" placeholder="Subject Code"></div>
                 <div class="form-group"><button id="search_btn" class="btn btn-primary active"
                         data-bs-hover-animate="pulse" type="submit">Search</button></div>
         </div>
@@ -94,15 +94,19 @@
         <div></div>
     </div>
     <!-- End: Highlight Clean -->
-
+    <div id="all_paper_levels" class="container">
+        <!-- Start: Intro -->
+        <div class="text-capitalize text-left text-primary d-xl-flex intro">
+            <p class="lead text-monospace text-left" style="padding: 20px;">
+                <i class="icon fa fa-arrow-left" aria-hidden="true"></i>
+                </p>
+        </div>
+        <!-- End: Intro -->
+    </div>
     <!-- Start: Features Boxed -->
     <div class="features-boxed">
-
         <div class="container">
-            <div id="all_paper_levels">
-                <span class="icon_back"><i class="fa fa-arrow-left"></i>
-                </span>
-             </div>
+            
             <!-- Start: Features -->
             <div id="all_papers_showcase" class="row justify-content-center bounce animated features">
 
@@ -134,14 +138,16 @@
                     <p class="text-left" style="margin-top: 5%;margin-bottom: 3%;/*width: auto;*/">© 2020 Khushit Shah
                     </p>
                     <p class="text-left" style="margin-top: 5%;margin-bottom: 3%;"></p>
+                    <div class="col d-flex justify-content-between align-items-center">
+                        <a href="https://github.com/khushit-shah/"><i class="icon_cus fa fa-github"></i></a>
+                        <a href="https://www.twitter.com/khushitshah77"><i class="icon_cus icon ion-social-twitter"></i></a>
+                        <a href="https://www.facebook.com/khushit.shah.73"><i class="icon_cus icon ion-social-facebook"></i></a>
+                        <a href="https://www.linkedin.com/in/khushit-shah/"><i class="icon_cus fa fa-linkedin"></i></a>
+                        <!-- <a href="https://"><i class="icon_cus icon ion-social-youtube"></i></a> -->
+                        <a href="https://www.instagram.com/khushitshah"><i class="icon_cus fa fa-instagram"></i></a>
+                    </div>
                 </div>
-                <div class="col d-flex justify-content-between align-items-center">
-                    <i class="icon_cus fa fa-github"></i>
-                    <i class="icon_cus icon ion-social-twitter"></i>
-                    <i class="icon_cus icon ion-social-facebook"></i>
-                    <i class="icon_cus icon ion-social-youtube"></i>
-                    <i class="icon_cus fa fa-instagram"></i>
-                </div>
+
                 <div class="col-12 col-sm-6 col-md-6">
                     <p class="text-right" style="margin-top:5%;margin-bottom:8%;font-size:1em;">Visit official GTU
                         website&nbsp;<a href="http://gtu.ac.in">here</a>&nbsp;</p>
@@ -149,11 +155,29 @@
             </div>
         </div>
     </div>
+
+    <div id="download_modal" class="modal fade border-primary shadow bounce animated" role="dialog" tabindex="-1">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Downloading</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                <div class="modal-body">
+                    <!-- Start: Loading Div -->
+                    <div id="ldiv" class="loadingdiv" style="display: block;"><img class="loadingdivimg" src="assets/img/loading.gif"></div>
+                    <!-- End: Loading Div -->
+                    <p class="pulse animated" style="align-items: center;text-align: center;padding-top: 20px;">Converting pdfs just for you 💖</p>
+                    <p class="pulse animated" style="align-items: center;text-align: center;padding-top: 20px;">File will be downloaded automatically in few seconds</p>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+    
     <!-- End: simple footer -->
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/aos.js"></script>
     <script src="assets/js/bs-init.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.2.0/aos.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 
