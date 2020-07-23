@@ -116,6 +116,7 @@ searchForm.addEventListener("submit", async (event) => {
         searchResult.parentElement.innerHTML += searchResultAllDownloadButtonTemplate
             .replace(/\$1/g, code)
             .replace("$2", code)
+            
         searchResult.scrollIntoView()
     } catch (err) {
         formErrField.innerHTML = err.message
@@ -174,8 +175,8 @@ async function showcaseAllPapers(jsonFile) {
         .replace("$1", json.join(","))
         .replace(/\$2/g, jsonFile)
     }
+    if(jsonFile != "departments")
     showcase.scrollIntoView()
-
 }
 
 async function showcaseAllPapersOfCode(code) {
