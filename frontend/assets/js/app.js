@@ -43,7 +43,7 @@ async function downloadSinglePaper(element) {
     let downloadUrl = serverUrl + "pdf/" + paperCode + "?url=" + paperUrl
     let data = await (await httpRequest(downloadUrl)).blob()
     let link = document.createElement('a');
-    link.href = (URL || webkitURL).createObjectURL(data, {type: "application/pdf"});
+    link.href = (URL || webkitURL).createObjectURL(data, { type: "application/pdf" });
     link.download = paperCode + '.pdf';
     link.dispatchEvent(new MouseEvent('click'));
     $("#download_modal").modal("hide")
@@ -56,7 +56,7 @@ async function downloadAllPapers(element) {
     let downloadUrl = serverUrl + "pdfbundle/" + paperName + "?codes=" + paperCode
     let data = await (await httpRequest(downloadUrl)).blob()
     let link = document.createElement('a');
-    link.href = (URL || webkitURL).createObjectURL(data, {type: "application/zip"});
+    link.href = (URL || webkitURL).createObjectURL(data, { type: "application/zip" });
     link.download = paperName + '.zip';
     link.dispatchEvent(new MouseEvent('click'));
     $("#download_modal").modal("hide")
@@ -116,7 +116,7 @@ searchForm.addEventListener("submit", async (event) => {
         searchResult.parentElement.innerHTML += searchResultAllDownloadButtonTemplate
             .replace(/\$1/g, code)
             .replace("$2", code)
-            
+
         searchResult.scrollIntoView()
     } catch (err) {
         formErrField.innerHTML = err.message
@@ -139,9 +139,9 @@ const paperShowcaseCodeTemplate = `<div class="col-sm-6 col-md-5 col-lg-4 item">
     <h3 class="name">$1</h3>
 </div>
 </div>`
-const allPaperDownloadAllButtonTemplate =`<button id="all_paper_download_btn" class="btn btn-primary" type="button" onClick="downloadAllPapers(this)" data-codes="$1" data-name="$2"
+const allPaperDownloadAllButtonTemplate = `<button id="all_paper_download_btn" class="btn btn-primary" type="button" onClick="downloadAllPapers(this)" data-codes="$1" data-name="$2"
 style="margin: 20px;margin-top: 0px;margin-bottom: 30px;margin-right: 30ox;margin-left: 35px;">Download
-All [ $2.zip ]</button>` 
+All [ $2.zip ]</button>`
 
 const paperLevelShower = document.querySelector("#all_paper_levels");
 console.log(paperLevelShower)
@@ -170,13 +170,13 @@ async function showcaseAllPapers(jsonFile) {
             .replace("$2", jsonFile.includes("sem") ? ("code:" + subcat) : ((jsonFile == "departments" ? "" : jsonFile + "-") + subcat))
     })
 
-    if(jsonFile.includes("sem")) {
+    if (jsonFile.includes("sem")) {
         showcase.parentElement.innerHTML += allPaperDownloadAllButtonTemplate
-        .replace("$1", json.join(","))
-        .replace(/\$2/g, jsonFile)
+            .replace("$1", json.join(","))
+            .replace(/\$2/g, jsonFile)
     }
-    if(jsonFile != "departments")
-    showcase.scrollIntoView()
+    if (jsonFile != "departments")
+        showcase.scrollIntoView()
 }
 
 async function showcaseAllPapersOfCode(code) {
@@ -193,12 +193,12 @@ async function showcaseAllPapersOfCode(code) {
             .replace("$2", url)
             .replace("$3", code)
     })
-    if(json.length > 1)
-    showcase.parentElement.innerHTML += allPaperDownloadAllButtonTemplate
+    if (json.length > 1)
+        showcase.parentElement.innerHTML += allPaperDownloadAllButtonTemplate
             .replace("$1", code)
             .replace(/\$2/g, code)
     showcase.scrollIntoView()
-        
+
 }
 
 function showNextLevel(nextLevel) {
