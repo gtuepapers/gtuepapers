@@ -22,9 +22,11 @@ jobs:
     - name: Create local changes
       run: |
         rm -rf backend
-        rm LICENSE.md
+        rm LICENSE
         rm README.md
-        cp -vaR frontend/. . && rm -rf frontend/
+        rm -rf .github
+        cp -vaR frontend/. .
+        rm -rf frontend/
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"
