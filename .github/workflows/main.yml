@@ -40,5 +40,4 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.ACCESS_GH }} 
-        repository: https://github.com/gtuepapers/gtuepapers.github.io.git
-        force: true
+        repository: gtuepapers/gtuepapers.github.io
