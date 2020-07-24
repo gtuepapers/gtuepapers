@@ -21,7 +21,7 @@ jobs:
         fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
     - name: Create local changes
       run: |
-        rmdir backend
+        rmdir -rf backend
         rm LICENSE.md
         rm README.md
         cp -vaR frontend/. . && rmdir frontend/
