@@ -32,9 +32,12 @@
                         class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button></div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav links">
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="#all_papers">All Papers&nbsp;</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="#paper_search">Search&nbsp;</a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" href="http://github.com/khushit-shah/gtuepapers/"> GitHub</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#all_papers">All Papers&nbsp;</a>
+                    </li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="#paper_search">Search&nbsp;</a>
+                    </li>
+                    <li class="nav-item" role="presentation"><a class="nav-link"
+                            href="http://github.com/khushit-shah/gtuepapers/"> GitHub</a></li>
                 </ul>
                 <ul class="nav navbar-nav ml-auto"></ul>
             </div>
@@ -47,8 +50,9 @@
                 <p class="text-center">Download GTU Papers on click. Download all papers of all subject of semester in a
                     click.</p>
             </div>
-            <div class="buttons"><a class="btn btn-primary" role="button" href="#">Search</a><button
-                    class="btn btn-light" type="button">All papers</button></div>
+            <div class="buttons"><a class="btn btn-primary" role="button" href="#paper_search">Search</a>
+                <a href="#all_papers"><button
+                    class="btn btn-light" type="button">All papers</button></a></div>
         </div>
     </div>
     <div data-aos="zoom-in" class="newsletter-subscribe">
@@ -59,7 +63,7 @@
             </div>
             <form id="search_frm" class="form-inline">
                 <div class="form-group"><input id="search_inp" class="form-control form-control-lg " type="text"
-                    name="code" placeholder="Subject Code"></div>
+                        name="code" placeholder="Subject Code"></div>
                 <div class="form-group"><button id="search_btn" class="btn btn-primary active"
                         data-bs-hover-animate="pulse" type="submit">Search</button></div>
         </div>
@@ -82,12 +86,12 @@
         <div class="text-capitalize text-left text-primary d-xl-flex intro">
             <p class="lead text-monospace text-left" style="padding: 20px;">
                 <i class="icon fa fa-arrow-left" aria-hidden="true"></i>
-                </p>
+            </p>
         </div>
     </div>
     <div class="features-boxed">
         <div class="container">
-            
+
             <div id="all_papers_showcase" class="row justify-content-center bounce animated features">
 
                 <div class="col-sm-6 col-md-5 col-lg-4 item">
@@ -114,8 +118,10 @@
                     <p class="text-left" style="margin-top: 5%;margin-bottom: 3%;"></p>
                     <div class="col d-flex justify-content-between align-items-center">
                         <a href="https://github.com/khushit-shah/"><i class="icon_cus fa fa-github"></i></a>
-                        <a href="https://www.twitter.com/khushitshah77"><i class="icon_cus icon ion-social-twitter"></i></a>
-                        <a href="https://www.facebook.com/khushit.shah.73"><i class="icon_cus icon ion-social-facebook"></i></a>
+                        <a href="https://www.twitter.com/khushitshah77"><i
+                                class="icon_cus icon ion-social-twitter"></i></a>
+                        <a href="https://www.facebook.com/khushit.shah.73"><i
+                                class="icon_cus icon ion-social-facebook"></i></a>
                         <a href="https://www.linkedin.com/in/khushit-shah/"><i class="icon_cus fa fa-linkedin"></i></a>
                         <a href="https://www.instagram.com/khushitshah"><i class="icon_cus fa fa-instagram"></i></a>
                     </div>
@@ -133,17 +139,22 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Downloading</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+                    <h4 class="modal-title">Downloading</h4><button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
                 <div class="modal-body">
-                    <div id="ldiv" class="loadingdiv" style="display: block;"><img class="loadingdivimg" src="assets/img/loading.gif"></div>
-                    <p class="pulse animated" style="align-items: center;text-align: center;padding-top: 20px;">Converting pdfs just for you 💖</p>
-                    <p class="pulse animated" style="align-items: center;text-align: center;padding-top: 20px;">File will be downloaded automatically in few seconds</p>
+                    <div id="ldiv" class="loadingdiv" style="display: block;"><img class="loadingdivimg"
+                            src="assets/img/loading.gif"></div>
+                    <p class="pulse animated" style="align-items: center;text-align: center;padding-top: 20px;">
+                        Converting pdfs just for you 💖</p>
+                    <p class="pulse animated" style="align-items: center;text-align: center;padding-top: 20px;">File
+                        will be downloaded automatically in few seconds</p>
                 </div>
                 <div class="modal-footer"></div>
             </div>
         </div>
     </div>
-    
+
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/aos.js"></script>

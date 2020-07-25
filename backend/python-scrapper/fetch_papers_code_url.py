@@ -5,7 +5,8 @@ crawled = set()
 # [code] [branch][code]
 codes = dict()
 
-branches = ["BA","BC","BD","BE","BESP","BH","BI","BL","BM","BP","BPSP","BT","BV","DA","DI","DISP","DP","DV","FD","HM","IC","MA","MB","MC","MCSP","ME","ML","MN","MP","MR","MT","PD","PH","PM","PP","PR","TE","VM"]
+branches = set("BA,BC,BD,BE,BESP,BH,BI,BL,BM,BP,BPSP,BT,BV,DA,DI,DISP,DP,DV,FD,HM,IC,MA,MB,MC,MCSP,ME,ML,MN,MP,MR,MT,PD,PH,PM,PP,PR,TE,VM".split(","))
+print(branches)
 
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup as bs
@@ -30,7 +31,11 @@ def page(url, check=False):
     # check if site is indeed an PDF Or Zip
     status_code = 200
     content_type = "pdf"
-    if(check):
+        # don't add if year < 2014, code length < 7
+    # Split Paper link with '/' to get Department and Year.. And also remove prefix *http://old.gtu.ac.in/GTU_Papers/*
+
+
+    if check :
         res = requests.head(url)
         status_code = res.status_code
         content_type = res.headers["Content-Type"]
@@ -38,10 +43,31 @@ def page(url, check=False):
     if ((not content_type.__contains__("html")  and status_code < 400) and (url.endswith(".zip") or url.endswith(".pdf"))):
         t2 = url.split("/")
         t2 = t2[t2.__len__() - 1]
+        urlSplit = ""
+        if(url.startswith("http://old.gtu.ac.in/GTU_Papers/")):
+            urlSplit = url.split(
+                "http://old.gtu.ac.in/GTU_Papers/")[1].split("/")
+        else:
+            urlSplit = url.split(
+                "http://files.gtu.ac.in/GTU_Papers/")[1].split("/")
+        # Check Year
+
+        urlSplit[1] = urlSplit[1].replace("_", " ")
+        if urlSplit[1][-4:].isnumeric() and int(urlSplit[1][-4:]) < 2014:
+            return False
+
+        # Remove .pdf or .zip from subject code
+        urlSplit[urlSplit.__len__(
+        ) - 1] = urlSplit[urlSplit.__len__() - 1].replace(".pdf", "")
+        urlSplit[urlSplit.__len__(
+        ) - 1] = urlSplit[urlSplit.__len__() - 1].replace(".zip", "")
+
+        if len(urlSplit[2]) < 7:
+            return False
 
         code = t2.split(".")[0]
         for branch in branches:
-            if url.__contains__(branch):
+            # if url.__contains__(branch):
                 if not codes.__contains__(branch):
                     codes[branch] = list()
                 codes[branch].append(code)
@@ -80,18 +106,22 @@ base = "http://old.gtu.ac.in/Qpaper.html"
 rec(base)
 savePaperJson()
 
-# Add all new papers [W2017-W2019]
+
 base =  "https://www.gtu.ac.in/uploads"
 sems = ["W2019","S2018","W2018","S2019", "W2017"]
-prefix = dict()
+prefix = []
 for branch in branches:
-  prefix[branch] = []
+    prefix[branch] = {}
 
 for sem in sems:
     for branch in branches:
+      try:
         for code in codes[branch]:
-          if code[:3] not in prefix[branch]:
-            ans = page(base+"/"+sem+"/"+branch+"/"+code+".pdf", check=True)
-            if not ans:
-              prefix[branch].append(code[:3])
+            if not code[:3] in prefix[branch] 
+                ans = page(base+"/"+sem+"/"+branch+"/"+code+".pdf", check=True)
+                if not ans:
+                    prefix[branch].add(code[:3])
+      except:
+        continue
+
 savePaperJson()

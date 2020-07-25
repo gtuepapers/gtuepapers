@@ -134,7 +134,8 @@ def jsonToListOfPaper():
             curPaper.setSem(curPaperLinkSplitted[2][1])
         else:
             curPaper.setSem(curPaperLinkSplitted[2][2])
-        papersProcessed.append(curPaper)
+        if curPaper.getYear()[-4:].isnumeric() and int(curPaper.getYear()[-4:]) >= 2014 and len(curPaper.getCode()) >= 7:
+            papersProcessed.append(curPaper)
 
         # print(curPaper.toJson())
 
@@ -169,25 +170,30 @@ if __name__ == "__main__":
     # departments.json //be,me etc
     # be.json //sem1 etc..
     # be_sem1.jsson
-
+    print(paper)
     deptJson = []
     for dept in departments:# BE
         deptJson.append(dept) # BE
         branchJson = [] # COMPUTER
-        for branch in departments[dept]: #COMPUTER 
-            branchJson.append(branch) #COMPUTER
+        for branch in departments[dept]: #COMPUTER
+            if not branch.isnumeric() and not branch == "GENERAL":
+                print(branch, "is not numeric")
+                continue 
             deptSem = [] # SEM 1
             for sem in departments[dept][branch]: # SEM 1
-                deptSem.append(sem) # SEM 1 
                 semPaper = [] # PAPER 1
                 for papers in departments[dept][branch][sem]: # PAPER1
-                    semPaper.append(papers) # PAPER 1
-                f = open("./json/"+dept+"-"+branch+"-"+sem+".json", "w+")# BE-1.json
-                f.write(json.dumps(semPaper))
+                        semPaper.append(papers) # PAPER 1
+                if len(semPaper) >= 1:
+                    deptSem.append(sem) # SEM 1     
+                    f = open("./json/"+dept+"-"+branch+"-"+sem+".json", "w+")# BE-1.json
+                    f.write(json.dumps(semPaper))
+                    f.close()
+            if len(deptSem) >= 1:
+                branchJson.append(branch) #COMPUTER
+                f = open("./json/"+dept+"-"+branch+ ".json", "w+")#BE.json
+                f.write(json.dumps(deptSem))
                 f.close()
-            f = open("./json/"+dept+"-"+branch+ ".json", "w+")#BE.json
-            f.write(json.dumps(deptSem))
-            f.close()
         f = open("./json/"+dept+".json", "w+")#BE.json
         f.write(json.dumps(branchJson))
         f.close()
