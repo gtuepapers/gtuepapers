@@ -41,6 +41,19 @@ class paper:
         self.branch = branch
 
     def setDept(self, dept):
+        if dept == "DI":
+            dept = "DE"
+        elif dept == "MC":
+            dept = "MCA"
+        elif dept == "BI":
+            dept = "BP"
+        elif dept == "BL":
+            dept == "BA"
+        elif dept == "MT":
+            dept = "MTM"
+        elif dept == "MB":
+            dept = "MBA"
+        
         self.dept = dept
 
     def setSem(self, sem):
@@ -77,66 +90,116 @@ class paper:
 
 def jsonToListOfPaper():
     # Load JSON into papersJson.
-    papersJson = json.load(open("./json/papers.json", "r"))
+    papersJson = json.load(open("papers.json", "r"))
     # Go Through Each Paper.
     for paperjson in papersJson:
+        if not "uploads" in paperjson[1]:
+            curPaper = paper()
 
-        curPaper = paper()
+            # Split Paper link with '/' to get Department and Year.. And also remove prefix *http://old.gtu.ac.in/GTU_Papers/*
+            curPaperLinkSplitted = ""
+            if(paperjson[1].startswith("http://old.gtu.ac.in/GTU_Papers/")):
+                curPaperLinkSplitted = paperjson[1].split(
+                    "http://old.gtu.ac.in/GTU_Papers/")[1].split("/")
+            else:
+                curPaperLinkSplitted = paperjson[1].split(
+                    "http://files.gtu.ac.in/GTU_Papers/")[1].split("/")
+            # make Year in Proper Format
+            # {Summer/Winter} Exam {Year}
+            curPaperLinkSplitted[1] = curPaperLinkSplitted[1].replace("_", " ")
+            if ExamDateRegex.match(curPaperLinkSplitted[1].replace(" ", "")):
+                curPaperLinkSplitted[1] = curPaperLinkSplitted[1].replace(
+                    "W", "Winter Exam ")
+                curPaperLinkSplitted[1] = curPaperLinkSplitted[1].replace(
+                    "S", "Summer Exam ")
 
-        # Split Paper link with '/' to get Department and Year.. And also remove prefix *http://old.gtu.ac.in/GTU_Papers/*
-        curPaperLinkSplitted = ""
-        if(paperjson[1].startswith("http://old.gtu.ac.in/GTU_Papers/")):
-            curPaperLinkSplitted = paperjson[1].split(
-                "http://old.gtu.ac.in/GTU_Papers/")[1].split("/")
+            # Remove .pdf or .zip from subject code
+            curPaperLinkSplitted[curPaperLinkSplitted.__len__(
+            ) - 1] = curPaperLinkSplitted[curPaperLinkSplitted.__len__() - 1].replace(".pdf", "")
+            curPaperLinkSplitted[curPaperLinkSplitted.__len__(
+            ) - 1] = curPaperLinkSplitted[curPaperLinkSplitted.__len__() - 1].replace(".zip", "")
+
+            #  curPaperLinkSplitted Format...
+            #    {Department} / {Year} / {code}
+            #      0            1           2
+
+            # setting Paper Code.
+            curPaper.setCode(paperjson[0])
+
+            # Setting Paper link
+            curPaper.setLink(paperjson[1])
+
+            # setting paper year..
+            curPaper.setYear(curPaperLinkSplitted[1])
+
+            # setting up paper department
+            curPaper.setDept(curPaperLinkSplitted[0])
+
+            # TODO Sem and branch...
+            if curPaperLinkSplitted[2][3:5] == "00":
+                curPaper.setBranch("General")
+            # setting up branch.
+            else:
+                curPaper.setBranch(curPaper.getCode()[
+                                (curPaper.getCode().__len__()-4):(curPaper.getCode().__len__()-2)])
+            # setting up sem
+            if curPaperLinkSplitted[2][2] == "0":
+                curPaper.setSem(curPaperLinkSplitted[2][1])
+            else:
+                curPaper.setSem(curPaperLinkSplitted[2][2])
+            if curPaper.getYear()[-4:].isnumeric() and int(curPaper.getYear()[-4:]) >= 2014 and len(curPaper.getCode()) >= 7:
+                papersProcessed.append(curPaper)
         else:
-            curPaperLinkSplitted = paperjson[1].split(
-                "http://files.gtu.ac.in/GTU_Papers/")[1].split("/")
-        # make Year in Proper Format
-        # {Summer/Winter} Exam {Year}
-        curPaperLinkSplitted[1] = curPaperLinkSplitted[1].replace("_", " ")
-        if ExamDateRegex.match(curPaperLinkSplitted[1].replace(" ", "")):
-            curPaperLinkSplitted[1] = curPaperLinkSplitted[1].replace(
-                "W", "Winter Exam ")
-            curPaperLinkSplitted[1] = curPaperLinkSplitted[1].replace(
-                "S", "Summer Exam ")
+            # https://www.gtu.ac.in/uploads/
+            curPaper = paper()
 
-        # Remove .pdf or .zip from subject code
-        curPaperLinkSplitted[curPaperLinkSplitted.__len__(
-        ) - 1] = curPaperLinkSplitted[curPaperLinkSplitted.__len__() - 1].replace(".pdf", "")
-        curPaperLinkSplitted[curPaperLinkSplitted.__len__(
-        ) - 1] = curPaperLinkSplitted[curPaperLinkSplitted.__len__() - 1].replace(".zip", "")
+            # Split Paper link with '/' to get Department and Year.. And also remove prefix *http://old.gtu.ac.in/GTU_Papers/*
+            curPaperLinkSplitted = paperjson[1].split("https://www.gtu.ac.in/uploads/")[1].split("/")
+            # make Year in Proper Format
+            # {Summer/Winter} Exam {Year}
+            curPaperLinkSplitted[0] = curPaperLinkSplitted[0].replace("_", " ")
+            if ExamDateRegex.match(curPaperLinkSplitted[0].replace(" ", "")):
+                curPaperLinkSplitted[0] = curPaperLinkSplitted[0].replace(
+                    "W", "Winter Exam ")
+                curPaperLinkSplitted[0] = curPaperLinkSplitted[0].replace(
+                    "S", "Summer Exam ")
 
-        #  curPaperLinkSplitted Format...
-        #    {Department} / {Year} / {code}
-        #      0            1           2
+            # Remove .pdf or .zip from subject code
+            curPaperLinkSplitted[curPaperLinkSplitted.__len__(
+            ) - 1] = curPaperLinkSplitted[curPaperLinkSplitted.__len__() - 1].replace(".pdf", "")
+            curPaperLinkSplitted[curPaperLinkSplitted.__len__(
+            ) - 1] = curPaperLinkSplitted[curPaperLinkSplitted.__len__() - 1].replace(".zip", "")
 
-        # setting Paper Code.
-        curPaper.setCode(paperjson[0])
+            #  curPaperLinkSplitted Format...
+            #    {Department} / {Year} / {code}
+            #      1            0           2
 
-        # Setting Paper link
-        curPaper.setLink(paperjson[1])
+            # setting Paper Code.
+            curPaper.setCode(paperjson[0])
 
-        # setting paper year..
-        curPaper.setYear(curPaperLinkSplitted[1])
+            # Setting Paper link
+            curPaper.setLink(paperjson[1])
 
-        # setting up paper department
-        curPaper.setDept(curPaperLinkSplitted[0])
+            # setting paper year..
+            curPaper.setYear(curPaperLinkSplitted[0])
 
-        # TODO Sem and branch...
-        if curPaperLinkSplitted[2][3:5] == "00":
-            curPaper.setBranch("General")
-        # setting up branch.
-        else:
-            curPaper.setBranch(curPaper.getCode()[
-                               (curPaper.getCode().__len__()-4):(curPaper.getCode().__len__()-2)])
-        # setting up sem
-        if curPaperLinkSplitted[2][2] == "0":
-            curPaper.setSem(curPaperLinkSplitted[2][1])
-        else:
-            curPaper.setSem(curPaperLinkSplitted[2][2])
-        if curPaper.getYear()[-4:].isnumeric() and int(curPaper.getYear()[-4:]) >= 2014 and len(curPaper.getCode()) >= 7:
-            papersProcessed.append(curPaper)
+            # setting up paper department
+            curPaper.setDept(curPaperLinkSplitted[1])
 
+            # TODO Sem and branch...
+            if curPaperLinkSplitted[2][3:5] == "00":
+                curPaper.setBranch("General")
+            # setting up branch.
+            else:
+                curPaper.setBranch(curPaper.getCode()[
+                                (curPaper.getCode().__len__()-4):(curPaper.getCode().__len__()-2)])
+            # setting up sem
+            if curPaperLinkSplitted[2][2] == "0":
+                curPaper.setSem(curPaperLinkSplitted[2][1])
+            else:
+                curPaper.setSem(curPaperLinkSplitted[2][2])
+            if curPaper.getYear()[-4:].isnumeric() and int(curPaper.getYear()[-4:]) >= 2014 and len(curPaper.getCode()) >= 7:
+                papersProcessed.append(curPaper)
         # print(curPaper.toJson())
 
     print(papersProcessed.__len__(), papersJson.__len__())
