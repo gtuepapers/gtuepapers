@@ -1,4 +1,4 @@
-const serverUrl = "https://gtuepapers.herokuapp.com/"
+const serverUrl = "http://ec2-18-191-94-181.us-east-2.compute.amazonaws.com:3000/"
 
 const searchBtn = document.querySelector("#search_btn")
 const searchInp = document.querySelector("#search_inp")
