@@ -69,7 +69,7 @@ async function httpRequest(url) {
 }
 
 function getNameFromUrl(url) {
-    let isNewerVersion = url.contains("uploads");
+    let isNewerVersion = url.includes("uploads");
     let urlSplit = url.split("/")
     let batch = urlSplit[urlSplit.length - (isNewerVersion ? 3 : 2)]
     let name = ""
