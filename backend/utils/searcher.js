@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-papersJson = fs.readFileSync("papers.json")
+papersJson = fs.readFileSync("python-scrapper/papers.json")
 papers = JSON.parse(papersJson)
 papersMap = new Map()
 
