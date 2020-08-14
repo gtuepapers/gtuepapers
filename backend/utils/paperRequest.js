@@ -4,7 +4,7 @@ const got = require("got")
  * @param {string} paperUrl 
  */
 async function paperRequest(paperUrl) {
-    if(!paperUrl.startsWith("http://old.gtu.ac.in") && !paperUrl.startsWith("http://files.gtu.ac.in/")) {
+    if(!paperUrl.startsWith("http://old.gtu.ac.in") && !paperUrl.startsWith("http://files.gtu.ac.in/") && !paperUrl.startsWith("https://www.gtu.ac.in/uploads/")) {
         console.error(paperUrl)
         return {err:1, data:"request out of domain"}
     }

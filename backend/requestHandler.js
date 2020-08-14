@@ -17,6 +17,7 @@ function requestHandler(app) {
             console.log("no url")
             res.status(403).json("No URL provided")
             res.end();
+            return;
         }
         data = await paperRequest(req.query.url);
         err = data.err
@@ -27,6 +28,7 @@ function requestHandler(app) {
             console.log("can't download paper")
             res.status(403).json(err)
             res.end();
+            return;
         }
         
         res.writeHead(200, {

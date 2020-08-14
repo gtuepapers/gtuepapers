@@ -78,7 +78,7 @@ function getNameFromUrl(url) {
     } else {
         name = "Summer "
     }
-    name += batch.substring(month.length - 4)
+    name += batch.substring(batch.length - 4)
     return name
 }
 
