@@ -69,15 +69,16 @@ async function httpRequest(url) {
 }
 
 function getNameFromUrl(url) {
+    let isNewerVersion = url.contains("uploads");
     let urlSplit = url.split("/")
-    let month = urlSplit[urlSplit.length - 2]
+    let batch = urlSplit[urlSplit.length - (isNewerVersion ? 3 : 2)]
     let name = ""
-    if (month[0] == "W") {
+    if (batch[0] == "W") {
         name = "Winter "
     } else {
         name = "Summer "
     }
-    name += month.substring(month.length - 4)
+    name += batch.substring(month.length - 4)
     return name
 }
 
