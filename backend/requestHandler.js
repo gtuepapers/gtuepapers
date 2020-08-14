@@ -15,7 +15,7 @@ function requestHandler(app) {
         console.log("pdf request")
         if (!req.query.url) {
             console.log("no url")
-            res.status(403).json("...")
+            res.status(403).json("No URL provided")
             res.end();
         }
         data = await paperRequest(req.query.url);
@@ -28,16 +28,17 @@ function requestHandler(app) {
             res.status(403).json(err)
             res.end();
         }
+        
+        res.writeHead(200, {
+            'Content-Type': 'application/pdf',
+            'Content-Disposition': `attachment; filename=${req.params.code}.pdf`,
+        });
+
         console.log("paper downloaded from gtu")
         pdf = body
         if (req.query.url.endsWith(".zip")) {
             pdf = zipper.zipToPDF(body);
         }
-        res.writeHead(200, {
-            'Content-Type': 'application/pdf',
-            'Content-Disposition': `attachment; filename=${req.params.code}.pdf`,
-            'Content-Length': pdf.length
-        });
         res.write(pdf)
         res.end()
     })
@@ -48,9 +49,16 @@ function requestHandler(app) {
         console.log("bundle request")
         if (!req.query.codes) {
             console.log("no url")
-            res.status(403).json("...")
+            res.status(403).json("No URL Provided")
             res.end();
+            return;
         }
+        // write the head before so, that we can get more time to download pdfs and create zips.
+        res.writeHead(200, {
+            'Content-Type': 'application/zip',
+            'Content-Disposition': `attachment; filename=${req.params.name}.zip`,
+        });
+        // Still 55 seconds is too less time. Need to optimize it! 
         let codes = req.query.codes
         codes = codes.split(",")
         let pdfs = []
@@ -68,6 +76,7 @@ function requestHandler(app) {
                     console.log("can't download paper")
                     res.status(403).json(err)
                     res.end();
+                    return;
                 }
                 pdf = body
                 console.log(typeof pdf)
@@ -83,11 +92,6 @@ function requestHandler(app) {
         // We have all the papers!
         // Now, get the zip
         zip = zipper.pdfsToZIP(pdfs, paths);
-        res.writeHead(200, {
-            'Content-Type': 'application/zip',
-            'Content-Disposition': `attachment; filename=${req.params.name}.zip`,
-            'Content-Length': zip.toBuffer().length
-        });
         res.write(zip.toBuffer())
         res.end()
     })
