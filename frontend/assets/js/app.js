@@ -1,4 +1,4 @@
-const serverUrl = "https://itsfakecrack.tech/"
+const serverUrl = "http://api.itsfakecrack.tech/"
 
 const searchBtn = document.querySelector("#search_btn")
 const searchInp = document.querySelector("#search_inp")
