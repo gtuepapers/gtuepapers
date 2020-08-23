@@ -1,4 +1,4 @@
-const serverUrl = "https://gtuepapers.herokuapp.com/"
+const serverUrl = "http://localhost:3000/"
 
 const searchBtn = document.querySelector("#search_btn")
 const searchInp = document.querySelector("#search_inp")
