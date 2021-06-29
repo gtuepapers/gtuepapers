@@ -1,4 +1,4 @@
-const serverUrl = "http://api.itsfakecrack.tech/"
+const serverUrl = "https://praxis-works-318312.el.r.appspot.com/"
 
 const searchBtn = document.querySelector("#search_btn")
 const searchInp = document.querySelector("#search_inp")
